@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+
+        }
+
+        td {
+            color: blue;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .class:hover {
+            font-size: 20px;
+            color: red;
+        }
+        #week{
+            margin-bottom: 10px;
+        }
+        .status {
+            color: red;
+        }
+        .status#attend{
+            color: green;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container text-center">
+        <div class="row" style="display: flex;">
+            <div style="margin: auto;">
+                Campus: <select name="campus" id="campus">
+                    <option value="hola">FU-Hoà Lạc</option>
+                    <option value="hcm">FU-Hồ Chí Minh</option>
+                    <option value="dn">FU-Đà Nẵng</option>
+                </select><br />
+                Lecture: <input type="text" name="lecture" id="lecture" placeholder="sonnt"/>
+                <input type="button" value="View">
+            </div>
+        </div>
+        <div class="row">
+            <div class="choose">
+                <p style="font-size:30px; font-weight:bold; margin:0;">Choose Week</p>
+                <select name="week" id="week">
+                    <option value="1">10/10/2022 To 16/10/2022</option>
+                    <option value="2">17/10/2022 To 23/10/2022</option>
+                    <option value="3">24/10/2022 To 30/10/2022</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Time</th>
+                <th scope="col">MONDAY</th>
+                <th scope="col">TUESDAY</th>
+                <th scope="col">WEDNESDAY</th>
+                <th scope="col">THURSDAY</th>
+                <th scope="col">FRIDAY</th>
+                <th scope="col">SATURDAY</th>
+                <th scope="col">SUNDAY</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Slot1</th>
+                <td>-</td>
+                <td>
+                    <a class="class" href="#">SE1601</a>
+                    <p class="subject">DBI202<br />at BE-215</p>
+                    <p class="status" id="attend">(Attended)</p>
+                </td>
+                <td>-</td>
+                <td>
+                    <a class="class" href="#">SE1601</a>
+                    <p class="subject">DBI202<br />at BE-215</p>
+                    <p class="status">(Absent)</p>
+                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+
+            </tr>
+
+            <tr>
+                <th scope="row">Slot2</th>
+                <td>
+                    <a class="class" href="#">SE1603</a>
+                    <p class="subject">PRJ301<br />at DE-215</p>
+                    <p class="status" id="attend">(Attended)</p>
+                </td>
+                <td>
+                    <a class="class" href="#">SE1621</a>
+                    <p class="subject">PRF192<br />at BE-315</p>
+                    <p class="status">(Absent)</p>
+                </td>
+                <td>
+                    <a class="class" href="#">SE1603</a>
+                    <p class="subject">PRJ301<br />at DE-215</p>
+                    <p class="status" id="attend">(Attended)</p>
+                </td>
+                <td>
+                    <a class="class" href="#">SE1621</a>
+                    <p class="subject">PRF192<br />at BE-315</p>
+                    <p class="status">(Not yet)</p>
+                </td>
+                <td>
+                    <a class="class" href="#">SE1603</a>
+                    <p class="subject">PRJ301<br />at DE-215</p>
+                    <p class="status" >(Not yet)</p>
+                </td>
+                <td>
+                    <a class="class" href="#">SE1605</a>
+                    <p class="subject">SWE301c<br />at BE-215</p>
+                    <p class="status">(Not yet)</p>
+                </td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Slot3</th>
+                <td>-</td>
+                <td>
+                    <a class="class" href="#">SE1604</a>
+                    <p class="subject">PRJ301<br />at DE-205</p>
+                    <p class="status" id="attend">(Attended)</p>
+                </td>
+                <td>-</td>
+                <td>
+                    <a class="class" href="#">SE1604</a>
+                    <p class="subject">PRJ301<br />at DE-205</p>
+                    <p class="status">(Not yet)</p>
+                </td>
+                <td>
+                    <a class="class" href="#">SE1609</a>
+                    <p class="subject">PRF192<br />at DE-215</p>
+                    <p class="status">(Not yet)</p>
+                </td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th scope="row">Slot4</th>
+                <td>
+                    <a class="class" href="#">SE1601</a>
+                    <p class="subject">PRO192<br />at BE-305</p>
+                    <p class="status" id="attend">(Attended)</p>
+                </td>
+                <td>-</td>
+                <td>
+                    <a class="class" href="#">SE1601</a>
+                    <p class="subject">PRO192<br />at BE-305</p>
+                    <p class="status" id="attend">(Attended)</p>
+                </td>
+                <td>-</td>
+                <td>
+                    <a class="class" href="#">SE1609</a>
+                    <p class="subject">PRF192<br />at DE-215</p>
+                    <p class="status">(Not yet)</p>
+                </td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Slot5</th>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th scope="row">Slot6</th>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th scope="row">Slot7</th>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                    <a class="class" href="#">SE1615</a>
+                    <p class="subject">PRO192<br />at DE-305</p>
+                    <p class="status">(Not yet)</p>
+                </td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
+
+</html>
