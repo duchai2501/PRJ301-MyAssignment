@@ -6,6 +6,7 @@
 package controller.lecturer;
 
 import dal.AttendanceDBContext;
+import dal.SessionDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import model.Attendance;
+import model.Session;
+import model.Student;
 
 /**
  *
@@ -34,10 +37,16 @@ public class TakeAttController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int sesid = Integer.parseInt(request.getParameter("sesid"));
+        int sesid = Integer.parseInt(request.getParameter("id"));
         AttendanceDBContext attDB = new AttendanceDBContext();
         ArrayList<Attendance> atts = attDB.getAttsBySessionID(sesid);
         request.setAttribute("atts", atts);
+        
+        SessionDBContext sesDB = new SessionDBContext();
+        Session ses = sesDB.get(sesid);
+        request.setAttribute("ses", ses);
+        
+        request.getRequestDispatcher("../view/lecturer/takeatt.jsp").forward(request, response);
                 
     } 
 
@@ -51,7 +60,24 @@ public class TakeAttController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        Session ses = new Session();
+        ses.setId(Integer.parseInt(request.getParameter("sesid")));
         
+        String[] stdids = request.getParameterValues("stdid");
+        for (String stdid : stdids) {
+            Attendance a = new Attendance();
+            Student s = new Student();
+            a.setStudent(s);
+            a.setSession(ses);
+            s.setId(Integer.parseInt(stdid));
+            a.setPresent(request.getParameter("present"+stdid).equals("present"));
+            a.setDescription(request.getParameter("description"+stdid));
+            ses.getAtts().add(a);
+        }
+        
+        SessionDBContext sesDB = new SessionDBContext();
+        sesDB.updateAttendance(ses);
+        response.sendRedirect("takeatt?id="+ses.getId());
     }
 
     /** 

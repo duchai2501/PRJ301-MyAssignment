@@ -17,7 +17,7 @@ public class Lecturer {
     private ArrayList<Group> groups = new ArrayList<>();
     private ArrayList<Session> sessions = new ArrayList<>();
     private String email;
-    private String imageUrl;
+    private String image;
 
     public int getId() {
         return id;
@@ -59,12 +59,12 @@ public class Lecturer {
         this.email = email;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(String imageUrl) {
+        this.image = imageUrl;
     }
 
 }

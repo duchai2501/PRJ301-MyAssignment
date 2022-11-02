@@ -16,7 +16,7 @@ public class Student {
     private ArrayList<Group> groups = new ArrayList<>();
     private ArrayList<Attendance> atts = new ArrayList<>();
     private String email;
-    private String imageUrl;
+    private String image;
 
     public int getId() {
         return id;
@@ -58,13 +58,15 @@ public class Student {
         this.email = email;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
+
+    
     
     
 }

@@ -23,7 +23,7 @@ public class AttendanceDBContext extends DBContext<Attendance> {
     public ArrayList<Attendance> getAttsBySessionID(int sesid) {
         ArrayList<Attendance> atts = new ArrayList<>();
         try {
-            String sql = "SELECT std.stdid, std.stdname,std.imageURL , ses.sesid, ISNULL(a.present,0) present , ISNULL(a.[description],'') [description]\n"
+            String sql = "SELECT std.stdid,std.stdname,ses.sesid, ISNULL(a.present,0) present , ISNULL(a.[description],'') [description]\n"
                     + "FROM [Session] ses \n"
                     + "INNER JOIN [Group] g ON ses.gid = g.gid\n"
                     + "INNER JOIN Student_Group sg ON g.gid = sg.gid\n"
@@ -43,7 +43,6 @@ public class AttendanceDBContext extends DBContext<Attendance> {
                 att.setDescription(rs.getString("description"));
                 s.setId(rs.getInt("stdid"));
                 s.setName(rs.getString("stdname"));
-                s.setImageUrl(rs.getString("imageURL"));
                 ses.setId(sesid);
                 atts.add(att);
             }
