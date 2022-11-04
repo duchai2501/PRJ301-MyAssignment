@@ -17,7 +17,7 @@
         Subject: ${requestScope.ses.group.subject.name}<br/>
         Room: ${requestScope.ses.room.name}
         Time: ${requestScope.ses.date} ${requestScope.ses.slot.description}<br/>
-        Attended: ${requestScope.ses.attended?"Yes":"No"}
+        Attended: ${requestScope.ses.attanded?"Yes":"No"}
         <form action="takeatt" method="POST">
             <input type="hidden" name="sesid" value="${param.id}"/>    
             <table border="1">

@@ -21,7 +21,7 @@ public abstract class BaseRoleController extends BaseAuthenticationController{
     private boolean checkAuthorization(HttpServletRequest req)
     {
         String currentURL = req.getServletPath();
-        Account account = (Account) req.getSession().getAttribute("account");
+        Account account = (Account) req.getSession().getAttribute("user");
         for (Role role : account.getRoles()) {
             for (Feature feature : role.getFeatures()) {
                 if(feature.getUrl().equals(currentURL))

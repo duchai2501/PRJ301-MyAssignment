@@ -29,34 +29,36 @@ public class SessionDBContext extends DBContext<Session> {
         try {
             connection.setAutoCommit(false);
             String sql_update_attended = "UPDATE [Session]\n"
-                    + "   SET \n"
-                    + "      [attanded] = 1\n"
-                    + " WHERE sesid =?";
+                    + "   SET [attanded] = 1\n"
+                    + " WHERE sesid =?;";
 
             PreparedStatement stm_update = connection.prepareStatement(sql_update_attended);
             stm_update.setInt(1, model.getId());
             stm_update.executeUpdate();
 
             //remove old attendance
-            String sql_remove_attended = "DELETE Attandance WHERE sesid =? ";
+            String sql_remove_attended = "DELETE FROM [Attendance]\n"
+                    + "      WHERE sesid =?;";
             PreparedStatement stm_remove = connection.prepareStatement(sql_remove_attended);
             stm_remove.setInt(1, model.getId());
             stm_remove.executeUpdate();
 
             //add new attendance
             for (Attendance att : model.getAtts()) {
-                String sql_insert_att = "INSERT INTO [Attandance]\n"
+                String sql_insert_att = "INSERT INTO [Attendance]\n"
                         + "           ([sesid]\n"
                         + "           ,[stdid]\n"
                         + "           ,[present]\n"
                         + "           ,[description]\n"
+                        + "           ,[record_time])\n"
                         + "     VALUES\n"
                         + "           (?\n"
                         + "           ,?\n"
                         + "           ,?\n"
-                        + "           ,?)";
+                        + "           ,?\n"
+                        + "           ,GETDATE());";
                 PreparedStatement stm_insert = connection.prepareStatement(sql_insert_att);
-                stm_insert.setInt(1, model.getIndex());
+                stm_insert.setInt(1, model.getId());
                 stm_insert.setInt(2, att.getStudent().getId());
                 stm_insert.setBoolean(3, att.isPresent());
                 stm_insert.setString(4, att.getDescription());
@@ -97,20 +99,20 @@ public class SessionDBContext extends DBContext<Session> {
 
     @Override
     public Session get(int id) {
+        String sql = "Select ses.sesid ,ses.[date], ses.[index], ses.attanded, \n"
+                + "g.gid,g.gname,\n"
+                + "sub.subid,sub.subname,\n"
+                + "l.lid,l.lname,\n"
+                + "r.rid,r.rname,\n"
+                + "t.tid,t.description\n"
+                + "from [Session] ses\n"
+                + "INNER JOIN [Group] g ON ses.gid = g.gid\n"
+                + "INNER JOIN Room r ON r.rid = ses.rid\n"
+                + "INNER JOIN TimeSlot t ON t.tid = ses.tid\n"
+                + "INNER JOIN Lecturer l ON l.lid = ses.lid\n"
+                + "INNER JOIN [Subject] sub ON sub.subid = g.subid\n"
+                + "WHERE ses.sesid = ?;";
         try {
-            String sql = "SELECT ses.sesid,ses.date,ses.[index],ses.attanded \n"
-                    + "	,g.gid,g.gname\n"
-                    + "	,sub.subid,sub.subname\n"
-                    + "	,l.lid,l.lname\n"
-                    + "	,r.rid,r.rname\n"
-                    + "	,t.tid,t.[description]\n"
-                    + "FROM [Session] ses\n"
-                    + "	INNER JOIN [Group] g ON g.gid = ses.gid\n"
-                    + "	INNER JOiN Room r ON r.rid = ses.rid\n"
-                    + "	INNER JOIN TimeSlot t ON t.tid = ses.tid\n"
-                    + "	INNER JOIN Lecturer l ON l.lid = ses.lid\n"
-                    + "	INNER JOIN [Subject] sub ON sub.subid = g.subid\n"
-                    + "WHERE ses.sesid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
@@ -119,28 +121,23 @@ public class SessionDBContext extends DBContext<Session> {
                 ses.setId(rs.getInt("sesid"));
                 ses.setDate(rs.getDate("date"));
                 ses.setIndex(rs.getInt("index"));
-                ses.setAttanded(rs.getBoolean("attended"));
-
+                ses.setAttanded(rs.getBoolean("attanded"));
                 Group g = new Group();
                 ses.setGroup(g);
                 g.setId(rs.getInt("gid"));
                 g.setName(rs.getString("gname"));
-
                 Room r = new Room();
                 ses.setRoom(r);
                 r.setId(rs.getInt("rid"));
                 r.setName(rs.getString("rname"));
-
                 TimeSlot t = new TimeSlot();
                 ses.setSlot(t);
                 t.setId(rs.getInt("tid"));
                 t.setDescription(rs.getString("description"));
-
                 Lecturer l = new Lecturer();
                 ses.setLecturer(l);
                 l.setId(rs.getInt("lid"));
                 l.setName(rs.getString("lname"));
-
                 Subject sub = new Subject();
                 g.setSubject(sub);
                 sub.setId(rs.getInt("subid"));

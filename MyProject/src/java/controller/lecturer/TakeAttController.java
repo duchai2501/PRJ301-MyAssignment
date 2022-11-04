@@ -45,8 +45,8 @@ public class TakeAttController extends HttpServlet {
         SessionDBContext sesDB = new SessionDBContext();
         Session ses = sesDB.get(sesid);
         request.setAttribute("ses", ses);
-        
         request.getRequestDispatcher("../view/lecturer/takeatt.jsp").forward(request, response);
+        
                 
     } 
 

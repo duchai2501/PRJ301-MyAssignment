@@ -22,15 +22,17 @@ public class AttendanceDBContext extends DBContext<Attendance> {
 
     public ArrayList<Attendance> getAttsBySessionID(int sesid) {
         ArrayList<Attendance> atts = new ArrayList<>();
+        String sql = "SELECT s.stdid,s.stdname,\n"
+                + "ses.sesid,\n"
+                + "ISNULL(a.present,0) present,ISNULL( a.[description],'') [description]\n"
+                + "FROM [Session] ses \n"
+                + "INNER JOIN [Group] g ON ses.gid = g.gid\n"
+                + "INNER JOIN Student_Group sg ON g.gid = sg.gid\n"
+                + "INNER JOIN Student s ON sg.stdid = s.stdid\n"
+                + "LEFT JOIN Attendance a ON a.sesid=ses.sesid AND a.stdid = s.stdid\n"
+                + "WHERE ses.sesid =?;";
         try {
-            String sql = "SELECT std.stdid,std.stdname,ses.sesid, ISNULL(a.present,0) present , ISNULL(a.[description],'') [description]\n"
-                    + "FROM [Session] ses \n"
-                    + "INNER JOIN [Group] g ON ses.gid = g.gid\n"
-                    + "INNER JOIN Student_Group sg ON g.gid = sg.gid\n"
-                    + "INNER JOIN Student std ON sg.stdid = std.stdid\n"
-                    + "LEFT JOIN Attandance a ON std.stdid = a.stdid AND ses.sesid = a.sesid\n"
-                    + "WHERE ses.sesid = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            PreparedStatement stm = connection.prepareCall(sql);
             stm.setInt(1, sesid);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
