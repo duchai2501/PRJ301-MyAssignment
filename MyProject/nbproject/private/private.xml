@@ -5,9 +5,6 @@
         <group>
             <file>file:/F:/Workspace/github/PRJ301_Assignment/PRJ301-MyAssignment/PRJ301-MyAssignment/MyProject/web/view/lecturer/takeatt.jsp</file>
             <file>file:/F:/Workspace/github/PRJ301_Assignment/PRJ301-MyAssignment/PRJ301-MyAssignment/MyProject/src/java/dal/SessionDBContext.java</file>
-            <file>file:/F:/Workspace/github/PRJ301_Assignment/PRJ301-MyAssignment/PRJ301-MyAssignment/MyProject/src/java/model/Attendance.java</file>
-            <file>file:/F:/Workspace/github/PRJ301_Assignment/PRJ301-MyAssignment/PRJ301-MyAssignment/MyProject/src/java/controller/lecturer/TakeAttController.java</file>
-            <file>file:/F:/Workspace/github/PRJ301_Assignment/PRJ301-MyAssignment/PRJ301-MyAssignment/MyProject/src/java/model/Session.java</file>
             <file>file:/F:/Workspace/github/PRJ301_Assignment/PRJ301-MyAssignment/PRJ301-MyAssignment/MyProject/src/java/dal/AttendanceDBContext.java</file>
         </group>
     </open-files>
