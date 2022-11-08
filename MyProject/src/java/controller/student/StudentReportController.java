@@ -48,7 +48,7 @@ public class StudentReportController extends HttpServlet {
         AttendanceDBContext attDB = new AttendanceDBContext();
         ArrayList<Attendance> listAttendence = attDB.getAttendenceReport(stdid, gid);
         for (Attendance a : listAttendence) {
-            if (a.isPresent()==false) {
+            if (a.isPresent()==false && a.getSession().isAttanded()==true) {
                 numberOfAbsent++;
             }
         }

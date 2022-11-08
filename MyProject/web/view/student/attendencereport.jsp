@@ -32,10 +32,18 @@
                         <td >${attendence.session.room.name}</td>
                         <td>${attendence.session.group.name}</td>
                         <td>${attendence.session.lecturer.name}</td>
-                        <td>
-                            <c:if test="${attendence.present ==true}"><span style="color:green;">Attended</span></c:if>
-                            <c:if test="${attendence.present ==false}"><span style="color:red;">Absent</span></c:if>
-                            </td>
+                                                 
+                            <c:if test="${attendence.present==true}">
+                                <td style="color:green;">V</td>
+                            </c:if>
+                            <c:if test="${attendence.present==false && attendence.session.attanded == true}">
+                                <td style="color:red;">X</td>
+                                <c:set var="count" value="${count+1}"/>
+                            </c:if>
+                            <c:if test="${attendence.present==false && attendence.session.attanded == false}">
+                                <td>-</td>
+                            </c:if>
+                            
                         </tr>
                 </c:forEach>    
                 <tr>
