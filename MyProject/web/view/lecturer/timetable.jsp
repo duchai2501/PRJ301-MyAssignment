@@ -12,16 +12,33 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style>
+            table,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+
+        }
+
+        td {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+        }
+        </style>
     </head>
     <body>
         Lecturer: <input type="text" readonly="readonly" value="${requestScope.lecturer.name}"/>
         <form action="timetable" method="GET">
             <input type="hidden" name="lid" value="${param.lid}"/>
+            <p style="font-size:30px; font-weight:bold; margin:0;">Choose Time</p>
             From: <input type="date" name="from" value="${requestScope.from}"/>
             To: <input type="date" name="to" value="${requestScope.to}"/>
             <input type="submit" value="View"/> 
         </form>
-        <table border="1px">
+        <table class="table">
             <tr>
                 <td> </td>
                 <c:forEach items="${requestScope.dates}" var="d">
